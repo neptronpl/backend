@@ -1,0 +1,32 @@
+<div class="row">
+ <div class="col-lg-5">
+  <div style="text-align: center;">
+   <h2>Produkty cenami poniej zakupu</h2>
+   <table class="table">
+     <tr>
+       <th>lp #</th>
+       <th>SKU</th>
+     </tr>
+     <?php
+     foreach($table as $_table) {
+       echo '<tr>';
+       echo '<td>';
+
+       echo '</td>';
+       echo '<td>';
+        echo $_table->sku;
+       echo '</td>';
+       echo '<td>';
+        echo $_table->products_price_gross;
+       echo '</td>';
+       echo '<td>';
+        echo $_table->products_history_price_gross;
+       echo '</td>';
+       echo '</tr>';
+     }
+     ?>
+   </table>
+  </div>
+
+ </div>
+</div>

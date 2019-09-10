@@ -1,0 +1,38 @@
+  <div class="row">
+   <div class="col-lg-5">
+    <div style="text-align: center;">
+     <h2>Produkty nie w pełni zsynchronizowane</h2>
+     <table class="table">
+       <tr>
+         <th>lp #</th>
+         <th>entity_id</th>
+         <th>type</th>
+         <th>value</th>
+         <th>SKU</th>
+       </tr>
+       <?php
+       foreach($table as $_table) {
+         echo '<tr>';
+         echo '<td>';
+           echo $_table['lp'];
+         echo '</td>';
+          echo '<td>';
+            echo $_table['entity_id'];
+          echo '</td>';
+          echo '<td>';
+            echo $_table['value'];
+          echo '</td>';
+          echo '<td>';
+            echo $_table['type'];
+          echo '</td>';
+          echo '<td>';
+            echo $_table['sku'];
+          echo '</td>';
+         echo '</tr>';
+       }
+       ?>
+     </table>
+    </div>
+
+   </div>
+</div>

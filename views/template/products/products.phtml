@@ -1,0 +1,180 @@
+<script src="http://strona_backendu/assets/pro/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="http://strona_backendu/assets/pro/pqselect.min.css" />
+<script src="http://strona_backendu/assets/pro/pqselect.min.js"></script>
+<link rel="stylesheet" href="http://strona_backendu/assets/pro/pqgrid.min.css" />
+<link rel="stylesheet" href="http://strona_backendu/assets/pro/pqgrid.css" />
+<script src="http://strona_backendu/assets/pro/pqgrid.min.js"></script>
+
+
+<div id="content">
+    <div class="inner" style="min-height: 700px;">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1> Produkty </h1>
+            </div>
+        </div>
+      <div class="row">
+        <div id="grid_array"></div>
+        <script>
+        var colM = [
+          { title: "<center><strong>Nazwa produktu</strong></center>", dataIndx: "name", width: 300,  dataType: "string", editable:false, align: "left",resizable: false,
+            filter: { crules: [{condition: 'range' }] }
+          },
+					{ title: "<center><strong>SKU</strong></center>", dataIndx: "sku", width: 90,  dataType: "string", editable:false, align: "left",resizable: false,
+            filter: { crules: [{condition: 'range' }] }
+					},
+          { title: "<center><strong>Kod dostawcy</strong></center>", dataIndx: "kod_dostawcy", width: 90,  dataType: "string", editable:false, align: "left",resizable: false,
+            filter: { crules: [{condition: 'range' }] }
+          },
+          { title: "<center><strong>Stan<br/>Dostawca</strong></center>", dataIndx: "qty_xml", width: 90,  dataType: "string", editable:false, align: "left",resizable: false,
+            filter: { crules: [{condition: 'range' }] }
+					},
+          { title: "<center><strong>Stan<br/>Sklep VATS</strong></center>", dataIndx: "qty_vats", width: 90,  dataType: "string", editable:false, align: "left",resizable: false,
+            filter: { crules: [{condition: 'range' }] }
+					},
+          { title: "<center><strong>Stan<br/>Sklep DAMA KARO</strong></center>", dataIndx: "qty_damakaro", width: 90,  dataType: "string", editable:false, align: "left",resizable: false,
+            filter: { crules: [{condition: 'range' }] }
+					},
+          { title: "<center><strong>Stan<br/>Allegro</strong></center>", dataIndx: "qty_allegro", width: 90,  dataType: "string", editable:false, align: "left",resizable: false,
+            filter: { crules: [{condition: 'range' }] }
+					},
+          { title: "<center><strong>Stan<br/>Magazyn</strong></center>", dataIndx: "qty_cw", width: 90,  dataType: "string", editable:false, align: "left",resizable: false,
+            filter: { crules: [{condition: 'range' }] }
+					},
+          { title: "<center><strong>ID<br/>Allegro</strong></center>", dataIndx: "allegro_id", width: 110,  dataType: "string", editable:false, align: "left",resizable: true,
+            filter: { crules: [{condition: 'range' }] }
+					},
+          { title: "<center><strong>Status<br/>Allegro</strong></center>", dataIndx: "allegro_status", width: 90,  dataType: "string", editable:false, align: "left",resizable: true,
+            filter: { crules: [{condition: 'range' }] }
+					},
+          { title: "<center><strong><br/></strong></center>", dataIndx: "details", width: 90,  dataType: "string", editable:false, align: "left",resizable: false
+
+					},
+				];
+
+									var dataModel = {
+											location: "remote",
+											sorting: "local",
+											dataType: "JSON",
+											method: "GET",
+											url: "http://strona_backendu/public/products/get_all_products",
+											getData: function (dataJSON) {
+													return { data: dataJSON.data };
+											}
+									}
+
+                  var obj = {
+										dataModel: dataModel,
+										colModel: colM,
+
+										wrap: false,
+										hwrap: true,
+										formulasModel: {on: false},
+										title: "POLGER Table",
+										filterModel: { on: true, mode: "AND", header: true, type: 'remote' },
+                    change: function (evt, ui) {
+											saveChanges(ui);
+										},
+
+                    width: "100%",
+                    height: "670",
+                    autoRow: true,
+                    freezeCols: 2,
+									  showTop: false,
+                    showBottom: false,
+
+									  numberCell: { show: true },
+
+ };
+
+
+ $.extend(obj.colModel[4], {
+ //stan VATS
+   render: function (ui) {
+     var rowData = ui.rowData,
+         dataIndx = ui.dataIndx;
+     rowData.pq_cellcls = rowData.pq_cellcls || {};
+     if (rowData['qty_vats'] > parseFloat(rowData['qty_xml'])) {
+       rowData.pq_cellcls[dataIndx] = 'bg-red';
+     }
+
+     }
+     });
+
+     $.extend(obj.colModel[6], {
+     //allegro qty
+       render: function (ui) {
+         var rowData = ui.rowData,
+             dataIndx = ui.dataIndx;
+         rowData.pq_cellcls = rowData.pq_cellcls || {};
+         if ((rowData['qty_allegro'] > parseFloat(rowData['qty_xml']))) {
+          rowData.pq_cellcls[dataIndx] = 'bg-red';
+         }
+      }
+      });
+
+      $.extend(obj.colModel[7], {
+      //central warehouse qty
+        render: function (ui) {
+          var rowData = ui.rowData,
+              dataIndx = ui.dataIndx;
+          rowData.pq_cellcls = rowData.pq_cellcls || {};
+          if (rowData['qty_cw']) {
+           rowData.pq_cellcls[dataIndx] = 'bg-green';
+          }
+          if (rowData['qty_cw']<2 && rowData['qty_cw']) {
+           rowData.pq_cellcls[dataIndx] = 'bg-red';
+          }
+       }
+       });
+
+     $.extend(obj.colModel[8], {
+     //allegro_id
+       render: function (ui) {
+         var rowData = ui.rowData,
+             dataIndx = ui.dataIndx;
+         rowData.pq_cellcls = rowData.pq_cellcls || {};
+         if (rowData['allegro_id']) {
+          rowData.pq_cellcls[dataIndx] = 'bg-allegro';
+        }
+
+                   return '<a href="https://allegro.pl/listing?string=' + rowData['allegro_id'] +'" target="_blank">' + rowData['allegro_id'] +'</a>';
+                 }
+      });
+
+      $.extend(obj.colModel[9], {
+      //central warehouse qty
+        render: function (ui) {
+          var rowData = ui.rowData,
+              dataIndx = ui.dataIndx;
+          rowData.pq_cellcls = rowData.pq_cellcls || {};
+          if (rowData['allegro_status']=='ACTIVE'||rowData['allegro_status']=='') {
+           rowData.pq_cellcls[dataIndx] = 'bg-green';
+         } else
+          {
+           rowData.pq_cellcls[dataIndx] = 'bg-red';
+          }
+       }
+       });
+
+      $.extend(obj.colModel[10], {
+      //detail
+        render: function (ui) {
+          var rowData = ui.rowData,
+              dataIndx = ui.dataIndx;
+          rowData.pq_cellcls = rowData.pq_cellcls || {};
+                    return '<a href="<?= base_url('products/detail/');?>' + rowData['details'] +'">INFO</a>';
+                  }
+       });
+
+          var $grid = $("#grid_array").pqGrid(obj);
+
+
+
+
+        </script>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>

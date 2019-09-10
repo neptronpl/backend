@@ -1,0 +1,130 @@
+<div id="content">
+
+    <div class="inner" style="min-height: 700px;">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1> Sklepy  </h1>
+            </div>
+        </div>
+
+      <div class="row">
+        <div class="col-lg-3">
+                     <div class="panel panel-info">
+                          <div class="panel-heading">
+                              Synchronizacja
+                          </div>
+
+                          <div class="panel-body">
+                              <div class="list-group">
+
+                                  <a href="#" class="list-group-item">
+                                      <i class="icon-ok"></i> Aktywnych produktów
+                                  <span class="pull-right text-muted small"><em></em>
+                                  </span>
+                                  </a>
+
+                                  <a href="#" class="list-group-item">
+                                      <i class="icon-ok"></i> Aktywnych sklepów
+                                  <span class="pull-right text-muted small"><em></em>
+                                  </span>
+                                  </a>
+
+
+
+
+                                  <a href="#" class="list-group-item">
+                                      <i class="icon-refresh"></i> Ostatnia synchronizacja
+                                  <span class="pull-right text-muted small"><em></em>
+                                  </span>
+                                  </a>
+
+                                  <a href="#" class="list-group-item">
+                                      <i class="icon-refresh"></i> Aktywna sesja:<br/>
+                                <pre>
+                                  <?=print_r($_SESSION);?>
+                                </pre>
+                                  </span>
+                                  </a>
+                                  <form action="" method="post">
+                                    <input name="loginVats" type="submit" class="btn btn-default btn-block btn-primary" value="Zaloguj do api VATS.pl">
+                                  </form>
+                                  <br/>
+                                  <form action="" method="post">
+                                    <input name="synchroVats" type="submit" class="btn btn-default btn-block btn-primary" value="Synchronizuj dane z VATS.pl">
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="panel panel-info">
+                       <div class="panel-heading">
+                           Dodane Sklepy
+                       </div>
+
+                       <div class="panel-body">
+                           <div class="list-group">
+
+                                 <?php
+                                   foreach($shops_array as $_shops) {
+                                     echo '<a href="#" class="list-group-item">'. $_shops['id'] .' | '. $_shops['name'] .'</a>';
+                                   }
+                                 ?>
+
+                           </div>
+                       </div>
+                   </div>
+                 </div>
+              <div class="col-lg-3">
+                <div class="panel panel-info">
+                     <div class="panel-heading">
+                         Funkcje API
+                     </div>
+
+                     <div class="panel-body">
+                         <div class="list-group">
+                             <a href="http://strona_backendu/synchronizer/codeigniter/public/index.php/magento/get_new_products" class="list-group-item">
+                               magento/get_new_products<br/> - Import do products z vats.pl
+                             </a>
+                             <a href="<?= base_url("/shops/api_update_qty_by_xml/1");?>" class="list-group-item">
+                             shops/api_update_qty_by_xml/1<br/> - aktualizacja qty w vats
+                             </a>
+                         </div>
+                     </div>
+                 </div>
+               </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="panel panel-info">
+                    <div class="panel-heading">
+                      Produkty nie zaimportowane do sklepów
+                    </div>
+                    <div class="panel-body">
+                      <table class="table table-bordered sortableTable responsive-table">
+                        <?php
+                        ?>
+                      </table>
+
+                   </div>
+                  </div>
+                 </div>
+
+                  <div class="col-lg-6">
+                    <div class="panel panel-danger">
+                      <div class="panel-heading">
+                        Produkty nie zaimportowane do backendu
+                      </div>
+                      <div class="panel-body">
+                        <table class="table table-bordered sortableTable responsive-table">
+
+                        </table>
+                     </div>
+                    </div>
+                   </div>
+                  </div>
+
+    </div>
+</div>
+</div>

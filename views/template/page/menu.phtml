@@ -1,0 +1,140 @@
+<?php
+$active_dashboard = $active_products = $active_admin = $active_admin_products = $active_admin_products_allegro = $active_admin_user = $active_admin_user_registration = $active_admin_products_xml = $active_admin_products_shops  = '';
+switch($menu_active) {
+
+    case "dashboard":
+      $active_dashboard ='active in';
+    break;
+    case "products":
+      $active_products ='active in';
+    break;
+    case "admin_products_allegro":
+      $active_admin = 'active in';
+      $active_admin_products = 'active in';
+      $active_admin_products_allegro ='active in';
+    break;
+    case "admin_products_xml":
+      $active_admin = 'active in';
+      $active_admin_products = 'active in';
+      $active_admin_products_xml ='active in';
+    break;
+    case "admin_products_shops":
+      $active_admin = 'active in';
+      $active_admin_products = 'active in';
+      $active_admin_products_shops ='active in';
+    break;
+    case "admin_user_registration":
+      $active_admin = 'active in';
+      $active_admin_user = 'active in';
+      $active_admin_user_registration ='active in';
+    break;
+}
+
+?>
+
+<div id="left" >
+  <div class="media user-media well-small">
+    <div class="col-6">
+      <a class="user-link" href="#">
+          <img class="media-object img-thumbnail user-img" alt="User Picture" src="http://strona_backendu/assets/img/user.gif" />
+      </a>
+    </div>
+    <div class="col-6">
+      <div class="media-body">
+        <h5 class="media-heading"> <?=$this->session->userdata('firstname');?><br/><?=$this->session->userdata('lastname');?><br/><small><?=$this->session->userdata('group');?> / level <?=$this->session->userdata('level');?></small></h5>
+        <ul class="list-unstyled user-info">
+          <li>
+             <a class="btn btn-success btn-xs btn-circle" style="width: 10px;height: 12px;"></a> Online
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+    <ul id="menu" class="collapse">
+
+        <li class="panel <?= $active_dashboard; ?>">
+            <a href="<?= base_url();?>backend/" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#dashboard">
+                <i class="icon-table"></i> Pulpit
+            </a>
+            <ul class="collapse <?= $active_dashboard; ?>" id="dashboard">
+              <li><br/></li>
+            </ul>
+        </li>
+
+
+        <li class="panel <?= $active_products; ?>">
+            <a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#DDL-nav">
+                <i class=" icon-sitemap"></i> Produkty
+                <span class="pull-right">
+                    <i class="icon-angle-left"></i>
+                </span>
+            </a>
+            <ul class="collapse <?= $active_products; ?>" id="DDL-nav">
+              <!--  <li>
+                    <a href="#" data-parent="#DDL-nav" data-toggle="collapse" class="accordion-toggle" data-target="#DDL1-nav">
+                        <i class="icon-sitemap"></i>&nbsp; Demo Link 1
+
+                <span class="pull-right" style="margin-right: 20px;">
+                    <i class="icon-angle-left"></i>
+                </span>
+
+
+                    </a>
+                    <ul class="collapse" id="DDL1-nav">
+                        <li>
+                            <a href="#"> Demo Link 1 </a>
+
+                        </li>
+
+
+                    </ul>
+
+                </li>
+                -->
+                <li class="<?= $active_products;?>"><a href="<?= base_url();?>products/overview/"> &nbsp; &bull; Produkty - Lista</a></li>
+
+            </ul>
+        </li>
+
+<?php
+        //zabezpieczenie przed inna grupa niz admin
+        if($this->session->userdata('isUserLoggedIn') && $this->session->userdata('group') == 'admin') {
+?>
+
+        <li class="panel <?= $active_admin; ?>">
+            <a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#admin">
+                <i class=" icon-tasks"></i> Admin
+                <span class="pull-right">
+                    <i class="icon-angle-left"></i>
+                </span>
+            </a>
+            <ul class="collapse <?= $active_admin; ?>" id="admin">
+
+                <li class="<?= $active_admin_products; ?>"><a href="#" data-parent="#admin" data-toggle="collapse" class="accordion-toggle" data-target="#admin-products"> &nbsp; <i class=" icon-sitemap"></i> Produkty
+                </a>
+                  <ul class="collapse <?= $active_admin_products; ?>" id="admin-products">
+                    <li class="<?= $active_admin_products_allegro;?>"><a href="<?= base_url();?>products/admin_allegro/"> &bull; Allegro</a></li>
+                    <li class="<?= $active_admin_products_xml;?>"><a href="<?= base_url();?>products/admin_xml/"> &bull; Xml</a></li>
+                    <li class="<?= $active_admin_products_shops;?>"><a href="<?= base_url();?>products/admin_shops/"> &bull; Sklepy</a></li>
+
+                  </ul>
+                </li>
+
+                <li class="<?= $active_admin_user; ?>"><a href="#" data-parent="#admin" data-toggle="collapse" class="accordion-toggle" data-target="#admin-users"> &nbsp; <i class=" icon-user"></i> Ludzie
+                </a>
+                  <ul class="collapse <?= $active_admin_user; ?>" id="admin-users">
+                    <li class="<?= $active_admin_user_registration;?>"><a href="<?= base_url();?>users/registration/"> &bull; Dodawanie
+                    </a></li>
+                  </ul>
+                </li>
+
+            </ul>
+        </li>
+
+
+<?php
+}
+?>
+</ul>
+</div>

@@ -1,0 +1,124 @@
+<div id="content">
+
+    <div class="inner" style="min-height: 700px;">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1> XML </h1>
+            </div>
+        </div>
+
+      <div class="row">
+        <div class="col-lg-3">
+                     <div class="panel panel-info">
+                          <div class="panel-heading">
+                              Synchronizacja
+                          </div>
+
+                          <div class="panel-body">
+                              <div class="list-group">
+
+                                  <a href="#" class="list-group-item">
+                                      <i class="icon-ok"></i> Aktywnych produktów
+                                  <span class="pull-right text-muted small"><em></em>
+                                  </span>
+                                  </a>
+
+                                  <a href="#" class="list-group-item">
+                                      <i class="icon-ok"></i> Aktywnych hurtowni
+                                  <span class="pull-right text-muted small"><em></em>
+                                  </span>
+                                  </a>
+
+
+
+
+                                  <a href="#" class="list-group-item">
+                                      <i class="icon-refresh"></i> Ostatnia synchronizacja
+                                  <span class="pull-right text-muted small"><em></em>
+                                  </span>
+                                  </a>
+
+                                  <a href="#" class="list-group-item">
+                                      <i class="icon-refresh"></i> Aktywna sesja:<br/>
+                                  <?=print_r($_SESSION);?>
+                                  </span>
+                                  </a>
+                                  <form action="" method="post">
+                                    <input name="synchroXml" type="submit" class="btn btn-default btn-block btn-primary" value="Pobierz aktualne XMLe">
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="panel panel-info">
+                       <div class="panel-heading">
+                           Dodane hurtownie
+                       </div>
+
+                       <div class="panel-body">
+                           <div class="list-group">
+
+                                 <?php
+
+                                   foreach($xml_carriers as $_xml_carriers) {
+                                     echo '<a href="#" class="list-group-item">'. $_xml_carriers['id'] .' | '. $_xml_carriers['name'] .'</a>';
+                                   }
+                                   //print_r($xml_carriers);
+                                 ?>
+
+                           </div>
+                       </div>
+                   </div>
+                 </div>
+              <div class="col-lg-3">
+                <div class="panel panel-info">
+                     <div class="panel-heading">
+                         Funkcje testowe
+                     </div>
+
+                     <div class="panel-body">
+                         <div class="list-group">
+                             <a href="#" class="list-group-item">
+                               a
+                             </a>
+
+                         </div>
+                     </div>
+                 </div>
+               </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="panel panel-info">
+                    <div class="panel-heading">
+                      Obserwowane produkty
+                    </div>
+                    <div class="panel-body">
+                      <table class="table table-bordered sortableTable responsive-table">
+                        <?php
+                        ?>
+                      </table>
+
+                   </div>
+                  </div>
+                 </div>
+
+                  <div class="col-lg-6">
+                    <div class="panel panel-danger">
+                      <div class="panel-heading">
+                        Nieobserwowane produkty
+                      </div>
+                      <div class="panel-body">
+                        <table class="table table-bordered sortableTable responsive-table">
+
+                        </table>
+                     </div>
+                    </div>
+                   </div>
+                  </div>
+
+    </div>
+</div>
+</div>

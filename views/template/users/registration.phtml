@@ -1,0 +1,62 @@
+<div id="content">
+
+    <div class="inner" style="min-height: 700px;">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Użytkownicy</h1>
+            </div>
+        </div>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <h2>Dodawanie nowego Użytkownika</h2>
+          <form action="" method="post">
+              <div class="form-group">
+                  <input type="text" class="form-control" name="firstname" placeholder="Firstname" required="" value="<?php echo !empty($user['firstname'])?$user['firstname']:''; ?>">
+                <?php echo form_error('firstname','<span class="help-block">','</span>'); ?>
+              </div>
+              <div class="form-group">
+                  <input type="text" class="form-control" name="lastname" placeholder="Lastname" required="" value="<?php echo !empty($user['lastname'])?$user['lastname']:''; ?>">
+                <?php echo form_error('lastname','<span class="help-block">','</span>'); ?>
+              </div>
+              <div class="form-group">
+                  <input type="email" class="form-control" name="email" placeholder="Email" required="" value="<?php echo !empty($user['email'])?$user['email']:''; ?>">
+                <?php echo form_error('email','<span class="help-block">','</span>'); ?>
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" name="password" placeholder="Password" required="">
+                <?php echo form_error('password','<span class="help-block">','</span>'); ?>
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" name="conf_password" placeholder="Confirm password" required="">
+                <?php echo form_error('conf_password','<span class="help-block">','</span>'); ?>
+              </div>
+              <div class="form-group">
+                  <input type="text" class="form-control" name="phone" placeholder="Phone" value="<?php echo !empty($user['phone'])?$user['phone']:''; ?>">
+              </div>
+              <div class="form-group">
+                  <input type="text" class="form-control" name="group" placeholder="Group" value="<?php echo !empty($user['group'])?$user['group']:''; ?>">
+              </div>
+              <div class="form-group">
+                  <input type="text" class="form-control" name="level" placeholder="Level" value="<?php echo !empty($user['level'])?$user['level']:''; ?>">
+              </div>
+              <div class="form-group">
+                  <input type="submit" name="regisSubmit" class="btn-primary" value="Submit"/>
+              </div>
+            </form>
+        </div>
+        <div class="col-lg-6">
+          <h2>Zarejestrowani Użytkownicy</h2>
+          <ul>
+            <?php
+            foreach($registered_users as $row) {
+              echo '<li><a href="'. base_url().'users/change_password/'.$row['id'].'">'.$row['id'].'</a> | '.$row['firstname'].' '.$row['lastname'].' | '.$row['email'].' | '.$row['group'].' '.$row['level'].'</li>';
+            }
+            ?>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

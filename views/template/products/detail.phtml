@@ -1,0 +1,121 @@
+<div id="content">
+
+    <div class="inner" style="min-height: 700px;">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2> Produkt #<?= $product->id;?> entity_id: <?= $product->magento_entity_id;?> SKU: <span class="label label-info"><?= $product->sku;?></span></h2>
+                <h1><?= $product->name;?></h2>
+                <p>Dostawca: <strong><?= $deliverer;?></strong> | Kod dostawcy: <strong><?= $product->kod_dostawcy;?></strong></p>
+                <p>Dodano: <strong><?= $product->date_add;?></strong> | Ostatnia modyfikacja: <strong><?= $product->date_update;?></strong></p>
+            </div>
+        </div>
+
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              Stany magazynowe
+            </div>
+            <table class="table">
+              <tr>
+                <th>Miejsce</th>
+                <th>Ilość</th>
+              </tr>
+              <tr>
+                <td>Dostawca</td>
+                <td><?= $product->qty_xml;?></td>
+              </tr>
+              <tr>
+                <td>Sklep VATS.pl</td>
+                <td><?= $product->qty_vats;?></td>
+              </tr>
+              <tr>
+                <td>Sklep Dama-Karo.pl</td>
+                <td><?= $product->qty_damakaro;?></td>
+              </tr>
+              <tr>
+                <td>Allegro</td>
+                <td><?= $product->qty_allegro;?></td>
+              </tr>
+              <tr>
+                <td>Magazyn (CW)</td>
+                <td><a href="<?= base_url('products/update_cw_qty/'.$product->id.'/down');?>">-</a> <?= $product->qty_cw;?> <a href="<?= base_url('products/update_cw_qty/'.$product->id.'/up');?>">+</a> </td>
+              </tr>
+            </table>
+          </div>
+
+        </div>
+        <div class="col-lg-3">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              Ceny
+            </div>
+            <table class="table">
+              <tr>
+                <th>Cennik</th>
+                <th>Kwota</th>
+              </tr>
+              <?php
+              foreach($group_price as $_group_price) {
+                $cust_group = $_group_price['cust_group'];
+                $name = $_group_price['name'];
+                $price = $_group_price['price'];
+                $class = $_group_price['class'];
+
+                echo '<tr>';
+                  echo '<td><span class="label '.$class.'"">'. $name .'</span></td>';
+                  echo '<td>'. $price .'</td>';
+                echo '</tr>';
+              }
+              ?>
+            </table>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              Historyczne dane z XML
+            </div>
+            <table class="table">
+              <tr>
+                <th>Data</th>
+                <th>QTY</th>
+                <th>Ceny (brutto)</th>
+              </tr>
+              <?php
+              foreach($xml_history as $_xml_history) {
+                  $date = $_xml_history->xml_name;
+                  $qty = $_xml_history->qty;
+                  $price_gross = $_xml_history->price_gross;
+                  $date = substr($date, 2,-4);
+                  $dateh = substr($date, 0,-3).' '.substr($date, 11).':00';
+
+                  echo '<tr>';
+                    echo '<td>'. $dateh .'</td>';
+                    echo '<td>'. $qty .'</td>';
+                    echo '<td>'. $price_gross .'</td>';
+                  echo '</tr>';
+              }
+              ?>
+            </table>
+          </div>
+        </div>
+
+        <div class="col-lg-3">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              Allegro
+            </div>
+            <table class="table">
+              <tr>
+                <td>Allegro id</td>
+                <td><a href="https://allegro.pl/listing?string=<?= $product->allegro_id;?>"><?= $product->allegro_id;?></a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
